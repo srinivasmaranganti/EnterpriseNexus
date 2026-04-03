@@ -13,8 +13,8 @@ public class EnterpriseDataPlugin
         // Demonstrates integration with "On-Premise" data
         return productName.ToLower() switch
         {
-            "laptop" => "Warehouse A: 45 units | Warehouse B: 12 units",
-            "monitor" => "Warehouse A: Out of Stock | Warehouse B: 150 units",
+            "laptops" => "Warehouse A: 45 units | Warehouse B: 12 units",
+            "monitors" => "Warehouse A: Out of Stock | Warehouse B: 150 units",
             _ => $"No stock records found for {productName}."
         };
     }

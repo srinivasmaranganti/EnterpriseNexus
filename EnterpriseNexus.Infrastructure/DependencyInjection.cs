@@ -7,7 +7,7 @@ namespace EnterpriseNexus.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddNexusAI(this IServiceCollection services, string modelId, string endpoint)
+    public static IServiceCollection AddNexusAI(this IServiceCollection services, string modelId, string endpoint, string apiKey)
     {
         services.AddScoped(sp =>
         {
@@ -16,8 +16,9 @@ public static class DependencyInjection
             // Native MS Connection (Keyless/Entra ID)
             builder.AddAzureOpenAIChatCompletion(
                 deploymentName: modelId,
-                endpoint: endpoint,
-                credentials: new DefaultAzureCredential());
+                endpoint: endpoint, apiKey
+                //credentials: new DefaultAzureCredential()
+                );
 
             // Register your "Bridge" plugin
             builder.Plugins.AddFromType<EnterpriseDataPlugin>();

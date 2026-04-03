@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="EnterpriseNexus.Api/EnterpriseNexus.Api.csproj" />
+  <Project Path="EnterpriseNexus.Core/EnterpriseNexus.Core.csproj" />
+  <Project Path="EnterpriseNexus.Infrastructure/EnterpriseNexus.Infrastructure.csproj" />
+</Solution>

@@ -1,0 +1,11 @@
+🏗️ The Enterprise Nexus Architecture
+A cloud-native middleware built with .NET 8 and Microsoft Semantic Kernel that bridges enterprise data with Generative AI.
+API Layer (EnterpriseNexus.Api): Features a high-performance HTTP pipeline with Global Exception Middleware. It captures failures (like 404s or 401s) and returns structured JSON instead of raw HTML error pages.
+Core Logic (EnterpriseNexus.Core): Contains your Native Plugins. These are C# functions (like GetWarehouseStock) that the AI can "call" automatically to fetch real-time data from legacy systems.
+Infrastructure (EnterpriseNexus.Infrastructure): The engine room where the Semantic Kernel is configured. It manages the connection to Azure OpenAI using secure API Key authentication.
+Resilient Orchestration: You implemented ToolCallBehavior.AutoInvokeKernelFunctions, allowing the LLM to decide when it needs your warehouse data to answer a user's question accurately.
+✅ Key Technical Wins
+Error Resilience: Solved the JsonReaderException by ensuring the API always communicates in JSON, even during failures.
+Configuration Safety: Moved sensitive credentials to appsettings.json, keeping the C# code clean and ready for different environments.
+Natural Language Mapping: Refined the plugin logic with .Contains() so the AI can understand "laptops" or "monitor stock" without needing exact string matches.
+Security Awareness: Successfully managed GitHub's Push Protection to ensure your infrastructure code remains secure while staying synchronized with your local "source of truth."

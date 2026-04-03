@@ -19,6 +19,10 @@
 # Mono auto generated files
 mono_crash.*
 
+# Exclude appsettings secrets
+appsettings.json
+appsettings.Development.json
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

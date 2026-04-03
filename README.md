@@ -1,52 +1,55 @@
-Enterprise Nexus: AI Integration Gateway
-Enterprise Nexus is a cloud-native integration middleware built with .NET 8 and Microsoft Semantic Kernel. It serves as an architectural bridge between modern Large Language Models (LLMs) and internal enterprise data systems.
+Enterprise Nexus: ACEP AI Integration Gateway
+Enterprise Nexus is a cloud‑native integration middleware built with .NET 8 and Microsoft Semantic Kernel. It serves as an intelligent architectural bridge between Large Language Models (LLMs) and ACEP’s core business systems, including NetForum CRM, CME Tracking, and Event Registration databases.
 🏗️ Architectural Overview
-The solution is built using Clean Architecture principles to ensure a clear separation of concerns and high testability.
-EnterpriseNexus.Api: ASP.NET Core 8 Web API managing the HTTP request pipeline and middleware.
-EnterpriseNexus.Infrastructure: Encapsulates Semantic Kernel orchestration and Azure OpenAI connectors.
-EnterpriseNexus.Core: Contains "Native Functions" (Plugins) that allow the AI to interact with internal business logic and legacy data safely.
+The solution follows Clean Architecture principles to ensure a decoupled, testable, and scalable foundation for enterprise AI operations.
+Project Structure
+EnterpriseNexus.Api
+ASP.NET Core 8 Web API managing the HTTP pipeline and the Global Exception Middleware for resilient JSON responses.
+EnterpriseNexus.Infrastructure
+The orchestration engine housing Semantic Kernel setup, Azure OpenAI connectors, and service registrations.
+EnterpriseNexus.Core
+Contains the domain logic and Native Functions (Plugins) that allow the AI to safely interact with ACEP business data.
 🌟 Key Technical Features
-AI Orchestration: Utilizes Semantic Kernel to dynamically plan and invoke C# functions based on natural language intent.
-Plugin-Based Integration: Implements a Native Plugin Architecture to query internal systems (simulated via C# services) without exposing raw database schemas to the LLM.
-Keyless Security: Leverages DefaultAzureCredential for Azure OpenAI connections, utilizing Managed Identities to avoid hardcoded secrets.
-Global Resiliency: Includes a custom Global Exception Handling Middleware that provides a centralized safety net for the AI orchestration layer.
-Decoupled Configuration: Uses the Options Pattern and Service Collection Extensions to keep the API layer agnostic of the underlying AI provider.
+Multi-Domain AI Orchestration
+Uses Semantic Kernel to dynamically route natural language prompts to specific business domains (e.g., Membership vs. Logistics).
+ACEP Business Plugins
+Implements a Native Plugin Architecture to query NetForum CRM for member status and the CME Tracker for credit verification without exposing sensitive schemas.
+Global Exception Middleware
+A custom resiliency layer that catches orchestration failures and ensures the API always returns structured, "AI-ready" JSON.
+Secure Configuration
+Uses the Options Pattern to manage Azure OpenAI endpoints and API keys securely across different environments.
 🛠️ Tech Stack
-Runtime: .NET 8 (LTS)
-AI Framework: Microsoft Semantic Kernel
-LLM Provider: Azure OpenAI (Native MS Integration)
-Security: Microsoft Entra ID (Managed Identities)
-Observability: Structured Logging via ILogger
+Category	Technology
+Runtime	.NET 8 (LTS)
+AI Framework	Microsoft Semantic Kernel
+LLM Provider	Azure OpenAI (GPT-4o)
+Security	Managed Identities / API Key Authentication
+Observability	Structured Logging via Serilog & ILogger
 🚀 Getting Started
-Prerequisites
-.NET 8 SDK
-Azure OpenAI Resource (or an OpenAI-compatible endpoint)
-Configuration
-Update the appsettings.json in the EnterpriseNexus.Api project:
+⚙️ Configuration
+Update appsettings.json in EnterpriseNexus.Api:
 json
 {
   "Azure": {
     "OpenAI": {
       "Endpoint": "https://azure.com",
-      "DeploymentName": "gpt-4o"
+      "DeploymentName": "gpt-4o",
+      "ApiKey": "YOUR_SECURE_KEY"
     }
   }
 }
 Use code with caution.
 
-Installation & Run
-Open your terminal.
-Navigate to the solution root.
-Execute the following command:
+▶️ Installation & Run
 powershell
 dotnet run --project EnterpriseNexus.Api
 Use code with caution.
 
 📊 Process Flow
-Request: The API receives a natural language query via the ChatController.
-Analysis: The Semantic Kernel evaluates the prompt and identifies required tools.
-Execution: The EnterpriseDataPlugin is automatically invoked to retrieve real-time data from the legacy C# service.
-Synthesis: The LLM processes the internal data and generates a human-readable response.
-Response: The system returns a structured JSON object containing the answer and operational metadata.
+Request: API receives a query (e.g., "Check my ACEP26 registration status").
+Analysis: Semantic Kernel evaluates the prompt and identifies the ACEPMemberServicesPlugin.
+Execution: The plugin retrieves real-time data from the simulated CRM/Meeting service.
+Synthesis: The LLM processes the raw data into a human-readable, professional response.
+Response: API returns structured JSON containing the answer and metadata.
 📝 Project Scope
-This repository demonstrates secure and resilient integration patterns for modernizing legacy enterprise workflows through AI-augmented orchestration.
+This repository demonstrates how professional associations like ACEP can modernize legacy workflows (CRM, CME, and Payments) using AI‑augmented orchestration, ensuring secure data access and a resilient user experience through .NET cloud-native design.

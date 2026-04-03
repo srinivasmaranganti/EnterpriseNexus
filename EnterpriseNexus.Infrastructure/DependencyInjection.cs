@@ -21,7 +21,13 @@ public static class DependencyInjection
                 );
 
             // Register your "Bridge" plugin
+            // --- Multi-Domain Plugin Orchestration ---
+
+            // 1. Logistics Domain (Warehouse)
             builder.Plugins.AddFromType<EnterpriseDataPlugin>();
+
+            // 2. ACEP Business Domain (CRM, CME, Registration)
+            builder.Plugins.AddFromType<ACEPMemberServicesPlugin>();
 
             return builder.Build();
         });

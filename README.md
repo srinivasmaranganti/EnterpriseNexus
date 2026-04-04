@@ -1,36 +1,64 @@
-# Enterprise Nexus
+# Project Scope
+This repository demonstrates how professional associations like ACEP can modernize legacy workflows (CRM, CME, and Payments) using AI‑augmented orchestration, ensuring secure data access and a resilient user experience through .NET cloud-native design.
+Should we add a "Sample Prompts" section to the bottom of the README to show exactly how to query the CME and Membership status?
 
-## Introduction
+# Enterprise Nexus : ACEP AI Integration Gateway
+Enterprise Nexus is a cloud‑native integration middleware built with .NET 8 and Microsoft Semantic Kernel. It serves as an intelligent architectural bridge between Large Language Models (LLMs) and ACEP’s core business systems, including NetForum CRM, CME Tracking, and Event Registration databases.
 
-Enterprise Nexus is a comprehensive solution designed to facilitate integration and collaboration across various enterprise applications and services. Its primary goal is to streamline processes and enhance productivity for organizations of all sizes.
+## Architectural Overview
+The solution follows Clean Architecture principles to ensure a decoupled, testable, and scalable foundation for enterprise AI operations.
+## Project Structure
+- **EnterpriseNexus.Api**: ASP.NET Core 8 Web API managing the HTTP pipeline and the Global Exception Middleware for resilient JSON responses.
+- **EnterpriseNexus.Infrastructure**: The orchestration engine housing Semantic Kernel setup, Azure OpenAI connectors, and service registrations.
+- **EnterpriseNexus.Core**: Contains the domain logic and Native Functions (Plugins) that allow the AI to safely interact with ACEP business data.
 
-## Features
-
-- **Integration**: Seamlessly connect different applications and services.
-- **Collaboration Tools**: Tools to enhance teamwork and project management.
-- **Analytics & Reporting**: Built-in analytics to monitor performance and generate reports.
-
-## Getting Started
-
-1. **Installation**:
-   - Follow the installation guide provided in the documentation.
-2. **Configuration**:
-   - Configuring the system for initial setup is crucial for optimal performance.
+## Key Technical Features
+1. **Multi-Domain AI Orchestration**:
+   - Uses Semantic Kernel to dynamically route natural language prompts to specific business domains (e.g., Membership vs. Logistics).
+2. **ACEP Business Plugins**:
+   - Implements a Native Plugin Architecture to query NetForum CRM for member status and the CME Tracker for credit verification without exposing sensitive schemas.
+3. **Global Exception Middleware**:
+   - A custom resiliency layer that catches orchestration failures and ensures the API always returns structured, "AI-ready" JSON.
+5. **Secure Configuration**:
+   - Uses the Options Pattern to manage Azure OpenAI endpoints and API keys securely across different environments.
 
 ## Usage
-
 Once installed, users can:
 - Access various features from the dashboard.
 - Customize settings to suit their operational needs.
 
-## Contribution
+## Tech Stack
+Category	Technology
+Runtime	.NET 8 (LTS)
+AI Framework	Microsoft Semantic Kernel
+LLM Provider	Azure OpenAI (GPT-4o)
+Security	Managed Identities / API Key Authentication
+Observability	Structured Logging via Serilog & ILogger
 
-We welcome contributions from the community. Please refer to the contributing guidelines in the repository for more information.
+## Getting Started 
+Configuration
+Update appsettings.json in EnterpriseNexus.Api:
+{
+  "Azure": {
+    "OpenAI": {
+      "Endpoint": "https://azure.com",
+      "DeploymentName": "gpt-4o",
+      "ApiKey": "YOUR_SECURE_KEY"
+    }
+  }
+}
 
+## Installation & Run
+Poershell:
+dotnet run --project EnterpriseNexus.Api
+
+## Process Flow
+1. **Request**: API receives a query (e.g., "Check my ACEP26 registration status").
+2. **Analysis**: Semantic Kernel evaluates the prompt and identifies the ACEPMemberServicesPlugin.
+3. **Execution**: The plugin retrieves real-time data from the simulated CRM/Meeting service.
+4. **Synthesis**: The LLM processes the raw data into a human-readable, professional response.
+5. **Response**: API returns structured JSON containing the answer and metadata
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contact
-
-For support or inquiries, please reach out to the maintainers via the Issues page.
